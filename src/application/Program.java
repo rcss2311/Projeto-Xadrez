@@ -9,7 +9,8 @@ import chess.ChessPiece;
 import chess.ChessPosition;
 
 public class Program {
-
+	//classe de implementação da logica do jogo como um todo, tabuleiro e suas regras, partida e suas regras, peças, tudo se rune aqui
+	//onde a magica acontece
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
@@ -22,6 +23,10 @@ public class Program {
 				System.out.println();
 				System.out.print("Source: ");
 				ChessPosition source = UI.readChessPosition(sc);
+				
+				boolean [][] possibleMoves = chessMatch.possibleMoves(source);
+				UI.clearScreen();
+				UI.printBoard(chessMatch.getPieces(), possibleMoves);
 				
 				System.out.println();
 				System.out.print("Target: ");

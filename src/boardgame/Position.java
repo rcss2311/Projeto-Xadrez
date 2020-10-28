@@ -1,6 +1,7 @@
 package boardgame;
 
 public class Position {
+	//clase para mapeamento de posição das peças no tabuleiro
 	private Integer row;
 	private Integer colum;
 	
