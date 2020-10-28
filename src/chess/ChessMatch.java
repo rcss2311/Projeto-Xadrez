@@ -1,5 +1,7 @@
 package chess;
 
+import java.awt.GraphicsDevice.WindowTranslucency;
+
 import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
@@ -8,12 +10,25 @@ import chess.pieces.Rook;
 
 public class ChessMatch {
 	//classe que implementa as regras de jogo, ou de negocio, aqui é que a dinamica do jogo vai ganhar forma
+	private int turn;
+	private Color currentPlayer;
 	private Board board;
 	
 	public ChessMatch() {
 		board = new Board(8,8);
+		turn = 1;
+		currentPlayer = Color.WHITE;
 		initialSetUp();
 	}
+	
+	public int getTurn() {
+		return turn;
+	}
+	
+	public Color getCurrentPlayer() {
+		return currentPlayer;
+	}
+	
 	//cira as peças dentro do jogo 
 	public ChessPiece[][] getPieces(){
 		ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColuns()];
@@ -41,6 +56,7 @@ public class ChessMatch {
 		validateSourcePosition(source);
 		validateTargetposition(source,target);
 		Piece capturedPiece = makeMove(source,target);
+		nextTurn();
 		return (ChessPiece)capturedPiece;
 	}
 	
@@ -58,6 +74,9 @@ public class ChessMatch {
 		if(!board.thereIsaPiece(position)) {
 			throw new ChessException("There no piece 	on souce position");
 		}
+		if(currentPlayer != ((ChessPiece)board.piece(position)).getColor()) {
+			throw new ChessException("The chosen piece isn`t yours");
+		}
 		if(!board.piece(position).isThereAnyPossibleMoves()) {
 			throw new ChessException("there is no possible moves for the chosen piece!");
 		}
@@ -69,6 +88,12 @@ public class ChessMatch {
 			throw new ChessException("The chosen piece can`t move to target possition!");
 		}
 		
+	}
+	
+	//troca de turno
+	private void nextTurn() {
+		turn++;
+		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
 	}
 	//adiciona uma nova peça no tabuleiro in game
 	private void placeNewPiece(char colunm, int row, ChessPiece piece) {
