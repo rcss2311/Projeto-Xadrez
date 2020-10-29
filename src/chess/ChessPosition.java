@@ -27,7 +27,7 @@ public class ChessPosition {
 	}
 	//recebe uma posição durante o jogo, e mapeia  a posição de onde a peça sai
 	protected static ChessPosition fromPosition(Position position) {
-		return new ChessPosition((char)('a' - position.getColum()), 8 - position.getRow());
+		return new ChessPosition((char)('a' + position.getColum()), 8 - position.getRow());
 	}
 	@Override
 	public String toString() {

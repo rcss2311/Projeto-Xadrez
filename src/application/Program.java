@@ -20,25 +20,25 @@ public class Program {
 		
 		while(true) {
 			try {
-				UI.clearScreen();
-				UI.printMatch(chessMatch,captured);
+				UI.clearScreen(); // limpa tela
+				UI.printMatch(chessMatch,captured); //inicia a partida
 				System.out.println();
-				System.out.print("Source: ");
-				ChessPosition source = UI.readChessPosition(sc);
+				System.out.print("Source: "); //escolhe a peça de origem
+				ChessPosition source = UI.readChessPosition(sc); //lê a escolha
 				
-				boolean [][] possibleMoves = chessMatch.possibleMoves(source);
-				UI.clearScreen();
-				UI.printBoard(chessMatch.getPieces(), possibleMoves);
+				boolean [][] possibleMoves = chessMatch.possibleMoves(source); //instancia matriz de movimentos possiveis da peça
+				UI.clearScreen(); //limpa a tela
+				UI.printBoard(chessMatch.getPieces(), possibleMoves); // printa o tabuleiro novamente com a peça marcada e a linha de movimentos
 				
 				System.out.println();
-				System.out.print("Target: ");
-				ChessPosition target = UI.readChessPosition(sc);
+				System.out.print("Target: "); //escolhe o destino da peça
+				ChessPosition target = UI.readChessPosition(sc); // lê a escolha 
 				
-				ChessPiece capturedPiece = chessMatch.performeChessMove(source, target);
+				ChessPiece capturedPiece = chessMatch.performeChessMove(source, target);// realiza o movimento com as informações da fonte e do destino 
 				
 				if(capturedPiece != null) {
 					captured.add(capturedPiece);
-				}
+				}//verifica a peça capturada e adiciona na lista de peças capturadas
 			}
 			catch(ChessException e) {
 				System.out.println(e.getMessage());

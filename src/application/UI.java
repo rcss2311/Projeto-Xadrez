@@ -40,7 +40,7 @@ public class UI {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
 		}
-	//faz a leitura das opç~es de jogo
+	//faz a leitura das posições das peças no jogo
 	public static ChessPosition readChessPosition(Scanner sc) {
 		try {
 			 String s = sc.nextLine();
@@ -52,14 +52,20 @@ public class UI {
 			throw new InputMismatchException("Error instantiate chees position. Valid values are from a1 to h8");
 		}
 	}
-	
+	//inicia a partida indicando placar de peças capturadas(metodo printCapturedPieces), o turno, e quem inicia a partida
+	//através do metodo chessMatch.getTurn e chessMatch.getCurrencyPlayer, respectivamente
 	public static void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
-		printBoard(chessMatch.getPieces());
+		printBoard(chessMatch.getPieces()); // printa a primeira versão do tabuleiro
 		System.out.println();
 		printCapturedPieces(captured);
 		System.out.println();
 		System.out.println("Turn: "+ chessMatch.getTurn());
 		System.out.println("Waiting for Current Player: "+ chessMatch.getCurrentPlayer());
+		
+		if(chessMatch.getCheck()) {
+			System.out.println("You are in CHECk!");
+		}
+		
 	}
 	
 //imprime a disposição do tabuleiro
@@ -73,7 +79,7 @@ public class UI {
 		}
 		System.out.println("  a b c d e f g h");
 	}
-	
+	//printa na inteface do usuario o tabuleiro com linhas numericas e colunas alfabeticas, agora com os movimentos possiveis
 	public static void printBoard(ChessPiece[][] pieces, boolean [][] possibleMoves) {
 		for (int i = 0; i < pieces.length; i++) {
 			System.out.print((8 - i) + " ");
@@ -84,7 +90,7 @@ public class UI {
 		}
 		System.out.println("  a b c d e f g h");
 	}
-//imprime as peças e suas peculiaridades no jogo
+//imprime as peças e suas peculiaridades no jogo. alem do caminho que a peça pode fazer no tabuleiro
 	private static void printPiece(ChessPiece piece, boolean background) {
 		if(background) {
 			System.out.print(ANSI_BLUE_BACKGROUND);
@@ -103,7 +109,7 @@ public class UI {
         }
         System.out.print(" ");
 	}
-	
+	//interface do placar de captura de peças brancas e pretas(nesse caso as pretas são amarelas, pois se não estariam da mesma cor do bg) 
 	private static void printCapturedPieces(List<ChessPiece> capturedPiece) {
 		List <ChessPiece> white = capturedPiece.stream().filter(x -> x.getColor() == Color.WHITE).collect(Collectors.toList());
 		List <ChessPiece> black = capturedPiece.stream().filter(x -> x.getColor() == Color.BLACK).collect(Collectors.toList());
