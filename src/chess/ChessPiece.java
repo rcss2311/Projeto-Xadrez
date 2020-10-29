@@ -5,7 +5,7 @@ import boardgame.Piece;
 import boardgame.Position;
 
 public abstract class ChessPiece extends Piece {
-	//classe, ainda abstrata, que herda a classe Peça do pacote boardgame que determina cor e posição no tabuleiro
+	//classe, ainda abstrata, que herda a classe Peça do pacote boardgame que determina cor e posição no tabuleiro 
 	private Color color;
 
 	public ChessPiece(Board board, Color color) {

@@ -1,6 +1,7 @@
 package chess;
 
-import java.awt.GraphicsDevice.WindowTranslucency;
+import java.util.ArrayList;
+import java.util.List;
 
 import boardgame.Board;
 import boardgame.Piece;
@@ -13,6 +14,9 @@ public class ChessMatch {
 	private int turn;
 	private Color currentPlayer;
 	private Board board;
+	
+	List<Piece> piecesOnBoard = new ArrayList<>();
+	List<Piece> capturedPieces = new ArrayList<>();
 	
 	public ChessMatch() {
 		board = new Board(8,8);
@@ -66,6 +70,12 @@ public class ChessMatch {
 		Piece p = board.removePiece(source);
 		Piece capturePiece = board.removePiece(target);
 		board.placePiece(p,target );
+		
+		if(capturePiece != null) {
+			piecesOnBoard.remove(capturePiece);
+			capturedPieces.add(capturePiece);
+		}
+		
 		return capturePiece;
 		
 	}
@@ -98,6 +108,7 @@ public class ChessMatch {
 	//adiciona uma nova peça no tabuleiro in game
 	private void placeNewPiece(char colunm, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(colunm, row).toPosition());
+		piecesOnBoard.add(piece);
 	}
 	//instancia o tipo de peça, a cor, posição no tabuleiro. setUp inicial do jogo, mapeamento das peças no tabuleiro
 	private void initialSetUp() {
