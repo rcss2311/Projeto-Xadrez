@@ -17,6 +17,8 @@ public abstract class ChessPiece extends Piece {
 		return color;
 	}
 	
+	// metodo para retirnar a posição de uma peça pegando a posição e retornando 
+	//faz parte da logica do check
 	public ChessPosition getChessPosition() {
 		return ChessPosition.fromPosition(position);
 	}

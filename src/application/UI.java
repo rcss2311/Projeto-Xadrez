@@ -60,12 +60,15 @@ public class UI {
 		printCapturedPieces(captured);
 		System.out.println();
 		System.out.println("Turn: "+ chessMatch.getTurn());
-		System.out.println("Waiting for Current Player: "+ chessMatch.getCurrentPlayer());
-		
-		if(chessMatch.getCheck()) {
-			System.out.println("You are in CHECk!");
+		if(!chessMatch.getCheckMate()) {
+			System.out.println("Wait player: "+chessMatch.getCurrentPlayer());
+			if(chessMatch.getCheck()) {
+				System.out.println("You are in CHECk!");
+			}
+		}else {
+			System.out.println("CHEKMATE!");
+			System.out.println("Winner: "+chessMatch.getCurrentPlayer());
 		}
-		
 	}
 	
 //imprime a disposição do tabuleiro
