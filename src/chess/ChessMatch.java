@@ -92,7 +92,8 @@ public class ChessMatch {
 	//determina o que acontece quando a peça de movimento tanto na origem , quando ela precisa ser transportada para outra posição
 	//ate o destino, onde pode acontecer a captura de uma peça
 	private Piece makeMove(Position source, Position target) {
-		Piece p = board.removePiece(source);
+		ChessPiece p = (ChessPiece)board.removePiece(source);
+		p.increaseMoveCount();
 		Piece capturePiece = board.removePiece(target);
 		board.placePiece(p,target );
 		
@@ -106,7 +107,8 @@ public class ChessMatch {
 	}
 	//desfaz o movimento se a posição for ilegal 
 	private void undoneMove(Position souce, Position target, Piece capturedPiece) {
-		Piece p = board.removePiece(target);
+		ChessPiece p = (ChessPiece)board.removePiece(target);
+		p.decreaseMoveCount();
 		board.placePiece(p, souce);
 		if(capturedPiece != null) {
 			board.placePiece(capturedPiece, target);

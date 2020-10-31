@@ -18,7 +18,7 @@ public abstract class Piece {
 		return board;
 	}
 	
-	//metodo abstrato para mapear os movementos de cada peça
+	//metodo abstrato para mapear os movementos possiveis de cada peça
 	public abstract boolean[][] possibleMoves();
 	
 	//metodo concreto, que so é possivel nessa classe, pois retorna o metodo abstrato possible moves

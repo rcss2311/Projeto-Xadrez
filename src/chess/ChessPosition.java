@@ -3,7 +3,7 @@ package chess;
 import boardgame.Position;
 
 public class ChessPosition {
-	//classe que determina a posição das pessoas, porem utilisando a logica de carater para as colunas e numeros paras as linhas
+	//classe que determina a posição das pessoas, porem utilisando a logica de caractere para as colunas e numeros paras as linhas
 	//aqui é onde é mapeado a informação que os jogadores passam durante o jogo
 	private char colunm;
 	private int row;
@@ -20,8 +20,7 @@ public class ChessPosition {
 	public int getRow() {
 		return row;
 	}
-	//Mapea a posição da peça em movimntação em linha que é a posição atual menos a final e em coluna, que é posição atual menos inicial 
-	//alem de mapear a posição durante o jogo
+	//converte a posição para o formato do tabuleiro de chadres, ao inves de usar cordenadas numericas, usa numerica e alfabetica
 	protected Position toPosition() {
 		return new Position(8-row, colunm - 'a');
 	}
