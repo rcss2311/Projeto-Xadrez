@@ -72,15 +72,12 @@ public class Pawn extends ChessPiece {
 		if(getBoard().positioExist(p) && !getBoard().thereIsaPiece(p) && getBoard().positioExist(p2) && !getBoard().thereIsaPiece(p2) && getMoveCount() == 0) {
 			mat[p.getRow()][p.getColum()] = true;
 		}
-		if(getColor() == Color.WHITE ) {
-			p.setValues(position.getRow() + 1, position.getColum() - 1 );
-			if(getBoard().positioExist(p) && isThereOponentPiece(p)) {
+		p.setValues(position.getRow() + 1, position.getColum() - 1);
+		if(getBoard().positioExist(p) && isThereOponentPiece(p)) {
 				mat[p.getRow()][p.getColum()] = true;
 			}
-	}
-		if(getColor() == Color.WHITE ) {
-			p.setValues(position.getRow() + 1, position.getColum() + 1 );
-			if(getBoard().positioExist(p) && isThereOponentPiece(p)) {
+		p.setValues(position.getRow() + 1, position.getColum() + 1 );
+		if(getBoard().positioExist(p) && isThereOponentPiece(p)) {
 				mat[p.getRow()][p.getColum()] = true;
 			}
 		}
@@ -99,7 +96,7 @@ public class Pawn extends ChessPiece {
 		}
 
 		
-	}
+	
 		return mat;
 	}
 }

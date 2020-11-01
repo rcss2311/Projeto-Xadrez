@@ -22,6 +22,7 @@ public class ChessMatch {
 	private boolean check;
 	private boolean checkMate;
 	private ChessPiece enPassantVulnerable;
+	private ChessPiece promoted;
 	
 	
 	List<Piece> piecesOnBoard = new ArrayList<>();
@@ -33,6 +34,10 @@ public class ChessMatch {
 		currentPlayer = Color.WHITE;
 		initialSetUp();
 	
+	}
+	
+	public ChessPiece getPromoted() {
+		return promoted;
 	}
 	
 	public int getTurn() {
@@ -90,6 +95,16 @@ public class ChessMatch {
 		}
 		
 		ChessPiece movedPiece = (ChessPiece)board.piece(target);
+		
+		//special move Promotion
+		promoted = null;
+		if(movedPiece instanceof Pawn) {
+			if((movedPiece.getColor() == Color.WHITE && target.getRow() == 0) || (movedPiece.getColor() == Color.BLACK && target.getRow() == 7)) {
+				promoted = (ChessPiece)board.piece(target);
+				promoted = replacePromotedPiece("Q");
+			}
+		}
+		
 		check = (testCheck(opponent(currentPlayer))) ? true : false;
 		
 		if(testCheckMate(opponent(currentPlayer))) {
@@ -108,6 +123,33 @@ public class ChessMatch {
 		}
 		
 		return (ChessPiece)capturedPiece;
+	}
+	
+	public ChessPiece replacePromotedPiece(String type) {
+		if(promoted == null) {
+			throw new IllegalStateException("There is no piece to be promoted");
+		}
+		if(!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")) {
+			throw new IllegalStateException("Invalid Type for promotion");
+		}
+		
+		Position pos = promoted.getChessPosition().toPosition();
+		Piece p = board.removePiece(pos);
+		piecesOnBoard.remove(p);
+		 
+		ChessPiece newPiece = newPieces(type, promoted.getColor());	
+		board.placePiece(newPiece, pos);
+		piecesOnBoard.add(newPiece);
+		
+		return newPiece;
+	}
+	
+	// metodo auxiliar para promover uma peça
+	private ChessPiece newPieces (String type, Color color) {
+		if(type.equals("B")) return new Bishop(board, color);
+		if(type.equals("N")) return new Knight(board, color);
+		if(type.equals("Q")) return new Queen(board, color);
+		return new Rook(board, color);
 	}
 	
 	//determina o que acontece quando a peça de movimento tanto na origem , quando ela precisa ser transportada para outra posição
