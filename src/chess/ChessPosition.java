@@ -3,8 +3,7 @@ package chess;
 import boardgame.Position;
 
 public class ChessPosition {
-	//classe que determina a posição das pessoas, porem utilisando a logica de caractere para as colunas e numeros paras as linhas
-	//aqui é onde é mapeado a informação que os jogadores passam durante o jogo
+	//Classe que converte as cordenadas de jogo em cordenadas de matriz 
 	private char colunm;
 	private int row;
 	public ChessPosition(char colunm, int row) {
@@ -20,14 +19,14 @@ public class ChessPosition {
 	public int getRow() {
 		return row;
 	}
-	//converte a posição para o formato do tabuleiro de chadres, ao inves de usar cordenadas numericas, usa numerica e alfabetica
+	//converte a posição no formato de tabuleiro, para o formato de posição normal
 	protected Position toPosition() {
-		return new Position(8-row, colunm - 'a');
+		return new Position(8-row, colunm - 'a');//conversão automatica de char em int
 	}
-	//recebe uma posição durante o jogo, e mapeia  a posição de onde a peça sai
+	//convetre a posição no formato normal de matriz, para o formato de tabuleiro
 	protected static ChessPosition fromPosition(Position position) {
-		return new ChessPosition((char)('a' + position.getColum()), 8 - position.getRow());
-	}
+		return new ChessPosition((char)('a' + position.getColum()), 8 - position.getRow());//casting da posição de matriz, int, para char
+	}																					   //retorna uma posição no tabuleiro
 	@Override
 	public String toString() {
 		return "" + colunm + row;

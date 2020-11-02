@@ -60,7 +60,7 @@ public class ChessMatch {
 		return enPassantVulnerable;
 	}
 	
-	//cira as peças dentro do jogo 
+	//metodo para pegar a matriz das peças no jogo, basicamente, as cordenadas no tabuleiro 
 	public ChessPiece[][] getPieces(){
 		ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColuns()];
 		for(int i = 0; i<board.getRows();i++) {
@@ -71,12 +71,11 @@ public class ChessMatch {
 		return mat;
 	}
 	
-	//imprime as possições possiveis, a partir de uma posição de origem. Faz issoconvertendo uma ChessPosition para uma position, valida
-	// a source position e retorna a peça no tabuleiro com seus movimentos possiveis
+	//Metodo que retorna um valor booleano verificando os movimentos possiveis para a peça do tabuleiro na posição inicial
 	public boolean[][] possibleMoves(ChessPosition sourcePosition){
-		Position position = sourcePosition.toPosition();
-		validateSourcePosition(position);
-		return board.piece(position).possibleMoves();
+		Position position = sourcePosition.toPosition();//convertendo cordenada de tabuleiro para cordenada de matiz
+		validateSourcePosition(position); //validação da posição inicial da peça
+		return board.piece(position).possibleMoves();// verificação
 	}
 	
 	//fazendo movimentações no jogo, fazendo testes, validando posição inicial, posição final, e ao final usando o metodo makeAmove
@@ -250,6 +249,7 @@ public class ChessMatch {
 		}
 	
 	// metodo para validar, primeiro, se existe uma peça nessa posição, segundo verifica se existe um movimento possivel para a peça
+	//tbm valida se a peça é da mesma cor da peça do jogador da rodada, na verdade, tratando essa excessões dentro da partida 
 	private void validateSourcePosition(Position position) {
 		if(!board.thereIsaPiece(position)) {
 			throw new ChessException("There no piece 	on souce position");
